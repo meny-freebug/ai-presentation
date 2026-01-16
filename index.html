@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Building a Business in an AI World</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         :root {
             --primary: #2D866E;
             --primary-light: #3da885;
@@ -22,162 +26,622 @@
             --bg-dark: #1a1a2e;
             --bg-darker: #0f0f1a;
         }
-        body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg-darker); color: var(--white); overflow: hidden; }
-        .slides-container { width: 100vw; height: 100vh; position: relative; }
+        
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--bg-darker);
+            color: var(--white);
+            overflow: hidden;
+        }
+        
+        .slides-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        
         .slide {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 60px 80px; opacity: 0; visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 80px;
+            opacity: 0;
+            visibility: hidden;
             transition: opacity 0.5s ease, visibility 0.5s ease;
             background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
         }
-        .slide.active { opacity: 1; visibility: visible; }
-        h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 30px; text-align: center; line-height: 1.2; color: var(--white); }
-        h2 { font-size: 2.8rem; font-weight: 600; margin-bottom: 40px; text-align: center; color: var(--white); }
-        h3 { font-size: 1.8rem; font-weight: 500; margin-bottom: 30px; color: var(--text-secondary); }
-        .gradient-text { background: linear-gradient(90deg, var(--primary), #4ECDC4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .gradient-text-warm { background: linear-gradient(90deg, var(--accent-red), #FFA500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .subtitle { font-size: 1.6rem; color: var(--text-secondary); text-align: center; max-width: 900px; line-height: 1.6; }
-        .quote { font-size: 1.8rem; font-style: italic; color: var(--text-primary); max-width: 1000px; text-align: center; line-height: 1.6; padding: 40px; border-left: 4px solid var(--primary); background: rgba(45, 134, 110, 0.1); border-radius: 0 var(--radius) var(--radius) 0; }
-        .big-number { font-size: 10rem; font-weight: 700; line-height: 1; }
+        
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.2;
+            color: var(--white);
+        }
+        
+        h2 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--white);
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            color: var(--text-secondary);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-text-warm {
+            background: linear-gradient(90deg, var(--accent-red), #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.6rem;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 900px;
+            line-height: 1.6;
+        }
+        
+        .quote {
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--text-primary);
+            max-width: 1000px;
+            text-align: center;
+            line-height: 1.6;
+            padding: 40px;
+            border-left: 4px solid var(--primary);
+            background: rgba(45, 134, 110, 0.1);
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+        
+        .big-number {
+            font-size: 10rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
         .big-number.primary { color: var(--primary); }
         .big-number.purple { color: var(--accent-purple); }
         .big-number.red { color: var(--accent-red); }
-        .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1200px; width: 100%; }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
         .card-grid-3 { grid-template-columns: repeat(3, 1fr); }
         .card-grid-4 { grid-template-columns: repeat(4, 1fr); }
-        .card { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; text-align: center; }
-        .card.highlight-primary { border-color: var(--primary); background: rgba(45, 134, 110, 0.1); }
-        .card.highlight-purple { border-color: var(--accent-purple); background: rgba(139, 124, 179, 0.1); }
-        .card.highlight-red { border-color: var(--accent-red); background: rgba(224, 96, 96, 0.1); }
-        .card-icon { margin-bottom: 16px; display: flex; justify-content: center; align-items: center; }
-        .card-icon svg { width: 48px; height: 48px; stroke-width: 1.5; }
-        .card.highlight-primary .card-icon svg { color: var(--primary); }
-        .card.highlight-purple .card-icon svg { color: var(--accent-purple); }
-        .card.highlight-red .card-icon svg { color: var(--accent-red); }
-        .card .card-icon svg { color: var(--text-secondary); }
-        .card-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 12px; color: var(--white); }
-        .card-text { font-size: 1rem; color: var(--text-secondary); line-height: 1.6; }
-        .timeline { display: flex; align-items: flex-start; justify-content: space-between; width: 100%; max-width: 1300px; padding: 60px 0 20px 0; position: relative; }
-        .timeline::before { content: ''; position: absolute; top: 80px; left: 40px; right: 40px; height: 3px; background: linear-gradient(90deg, var(--primary), var(--accent-purple), var(--accent-red)); z-index: 0; }
-        .timeline-item { display: flex; flex-direction: column; align-items: center; z-index: 1; flex: 1; }
-        .timeline-dot { width: 20px; height: 20px; border-radius: 50%; background: var(--bg-darker); border: 3px solid var(--primary); margin-bottom: 12px; }
-        .timeline-dot.active { width: 28px; height: 28px; background: var(--accent-purple); border-color: var(--accent-purple); box-shadow: 0 0 20px rgba(139, 124, 179, 0.5); }
-        .timeline-dot.highlight { width: 28px; height: 28px; background: var(--accent-red); border-color: var(--accent-red); box-shadow: 0 0 20px rgba(224, 96, 96, 0.5); }
-        .timeline-dot.success { width: 28px; height: 28px; background: var(--primary); border-color: var(--primary); box-shadow: 0 0 20px rgba(45, 134, 110, 0.5); }
-        .timeline-year { font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
-        .timeline-label { font-size: 0.85rem; color: var(--text-secondary); text-align: center; max-width: 100px; line-height: 1.3; }
-        .comparison { display: flex; gap: 30px; align-items: stretch; max-width: 1200px; }
-        .comparison-box { flex: 1; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius); padding: 32px; border: 2px solid transparent; }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            text-align: center;
+        }
+        
+        .card.highlight-primary {
+            border-color: var(--primary);
+            background: rgba(45, 134, 110, 0.1);
+        }
+        
+        .card.highlight-purple {
+            border-color: var(--accent-purple);
+            background: rgba(139, 124, 179, 0.1);
+        }
+        
+        .card.highlight-red {
+            border-color: var(--accent-red);
+            background: rgba(224, 96, 96, 0.1);
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+        
+        .card.highlight-primary .card-icon { color: var(--primary); }
+        .card.highlight-purple .card-icon { color: var(--accent-purple); }
+        .card.highlight-red .card-icon { color: var(--accent-red); }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--white);
+        }
+        
+        .card-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .timeline {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1300px;
+            padding: 60px 0 20px 0;
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 80px;
+            left: 40px;
+            right: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent-purple), var(--accent-red));
+            z-index: 0;
+        }
+        
+        .timeline-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+            flex: 1;
+        }
+        
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--bg-darker);
+            border: 3px solid var(--primary);
+            margin-bottom: 12px;
+        }
+        
+        .timeline-dot.active {
+            width: 28px;
+            height: 28px;
+            background: var(--accent-purple);
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 20px rgba(139, 124, 179, 0.5);
+        }
+        
+        .timeline-dot.highlight {
+            width: 28px;
+            height: 28px;
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+            box-shadow: 0 0 20px rgba(224, 96, 96, 0.5);
+        }
+        
+        .timeline-dot.success {
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(45, 134, 110, 0.5);
+        }
+        
+        .timeline-year {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .timeline-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 100px;
+            line-height: 1.3;
+        }
+        
+        .comparison {
+            display: flex;
+            gap: 30px;
+            align-items: stretch;
+            max-width: 1200px;
+        }
+        
+        .comparison-box {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius);
+            padding: 32px;
+            border: 2px solid transparent;
+        }
+        
         .comparison-box.old { border-color: var(--accent-red); }
         .comparison-box.new { border-color: var(--primary); }
-        .comparison-box h3 { font-size: 2rem; margin-bottom: 24px; }
+        
+        .comparison-box h3 {
+            font-size: 2rem;
+            margin-bottom: 24px;
+        }
+        
         .comparison-box.old h3 { color: var(--accent-red); }
         .comparison-box.new h3 { color: var(--primary); }
-        .comparison-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); font-size: 1.2rem; }
+        
+        .comparison-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.2rem;
+        }
+        
         .comparison-row:last-child { border-bottom: none; }
+        
         .comparison-label { color: var(--text-secondary); }
-        .comparison-value { font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .comparison-value { font-weight: 600; }
         .comparison-box.old .comparison-value { color: var(--accent-red); }
         .comparison-box.new .comparison-value { color: var(--primary); }
-        .comparison-arrow { display: flex; align-items: center; justify-content: center; font-size: 3rem; font-weight: 700; color: var(--primary); }
-        .table-container { max-width: 1100px; width: 100%; }
-        table { width: 100%; border-collapse: collapse; font-size: 1.1rem; }
-        th { background: rgba(45, 134, 110, 0.2); padding: 16px 20px; text-align: left; font-weight: 600; border-bottom: 2px solid var(--primary); }
-        td { padding: 16px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .strikethrough { text-decoration: line-through; color: var(--text-muted); }
+        
+        .comparison-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .table-container {
+            max-width: 1100px;
+            width: 100%;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1rem;
+        }
+        
+        th {
+            background: rgba(45, 134, 110, 0.2);
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        td {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .strikethrough {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+        
         .checkmark { color: var(--primary); }
-        .list { text-align: left; max-width: 800px; }
-        .list-item { font-size: 1.4rem; padding: 14px 0; display: flex; align-items: flex-start; gap: 16px; color: var(--text-primary); }
-        .list-icon { flex-shrink: 0; width: 28px; display: flex; align-items: center; justify-content: center; }
-        .list-icon svg { width: 24px; height: 24px; }
-        .vs-container { display: flex; align-items: center; gap: 40px; max-width: 1200px; }
-        .vs-box { flex: 1; padding: 32px; border-radius: var(--radius); background: rgba(255, 255, 255, 0.05); }
-        .vs-box h3 { font-size: 1.5rem; margin-bottom: 20px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 12px; }
-        .vs-box h3 svg { width: 32px; height: 32px; }
+        
+        .list {
+            text-align: left;
+            max-width: 800px;
+        }
+        
+        .list-item {
+            font-size: 1.4rem;
+            padding: 14px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            color: var(--text-primary);
+        }
+        
+        .list-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            width: 28px;
+            text-align: center;
+        }
+        
+        .vs-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            max-width: 1200px;
+        }
+        
+        .vs-box {
+            flex: 1;
+            padding: 32px;
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .vs-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
         .vs-box.problem { border: 2px solid var(--accent-red); }
         .vs-box.problem h3 { color: var(--accent-red); }
         .vs-box.solution { border: 2px solid var(--primary); }
         .vs-box.solution h3 { color: var(--primary); }
-        .vs-circle { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-purple), var(--primary)); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; flex-shrink: 0; }
-        .nav { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 1000; background: rgba(0, 0, 0, 0.6); padding: 12px 20px; border-radius: 50px; backdrop-filter: blur(10px); border: 1px solid var(--border); }
-        .nav-btn { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--primary); background: transparent; color: var(--primary); font-size: 1.3rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
-        .nav-btn svg { width: 24px; height: 24px; }
-        .nav-btn:hover { background: var(--primary); color: var(--white); }
-        .slide-counter { color: var(--text-secondary); font-size: 1rem; display: flex; align-items: center; padding: 0 12px; }
-        .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--accent-purple)); transition: width 0.3s ease; z-index: 1000; }
-        .section-tag { position: absolute; top: 30px; left: 40px; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; }
-        .decoration { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.2; z-index: 0; }
-        .decoration.primary { background: var(--primary); width: 400px; height: 400px; top: -100px; right: -100px; }
-        .decoration.purple { background: var(--accent-purple); width: 300px; height: 300px; bottom: -50px; left: -50px; }
-        .flow { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; max-width: 1100px; }
-        .flow-item { background: rgba(255, 255, 255, 0.08); padding: 16px 24px; border-radius: var(--radius); font-size: 1.2rem; border: 1px solid var(--border); color: var(--text-primary); }
-        .flow-arrow { color: var(--primary); display: flex; align-items: center; }
-        .flow-arrow svg { width: 24px; height: 24px; }
-        .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; }
-        .insight-card { background: rgba(255, 255, 255, 0.05); border-radius: var(--radius); padding: 32px; border: 1px solid var(--border); }
-        .insight-icon { margin-bottom: 16px; color: var(--primary); }
-        .insight-icon svg { width: 48px; height: 48px; }
-        .insight-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 12px; color: var(--white); }
-        .insight-text { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.6; }
-        .asset-row { display: flex; gap: 20px; max-width: 1200px; }
-        .asset-box { flex: 1; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius); padding: 24px; text-align: center; border: 1px solid var(--border); }
-        .asset-icon { margin-bottom: 12px; display: flex; justify-content: center; }
-        .asset-icon svg { width: 40px; height: 40px; color: var(--text-secondary); }
-        .asset-box .title { font-weight: 600; margin-bottom: 8px; font-size: 1.1rem; color: var(--white); }
-        .asset-box .desc { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.4; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .vs-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-purple), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .nav {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 12px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+        }
+        
+        .nav-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .slide-counter {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent-purple));
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .section-tag {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .decoration {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .decoration.primary {
+            background: var(--primary);
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -100px;
+        }
+        
+        .decoration.purple {
+            background: var(--accent-purple);
+            width: 300px;
+            height: 300px;
+            bottom: -50px;
+            left: -50px;
+        }
+        
+        .flow {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1100px;
+        }
+        
+        .flow-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 16px 24px;
+            border-radius: var(--radius);
+            font-size: 1.2rem;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+        
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+        }
+        
+        .insight-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius);
+            padding: 32px;
+            border: 1px solid var(--border);
+        }
+        
+        .insight-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+        
+        .insight-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--white);
+        }
+        
+        .insight-text {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+        
+        .asset-row {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+        }
+        
+        .asset-box {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        
+        .asset-icon {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+        
+        .asset-box .title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+        
+        .asset-box .desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         .slide.active .animate { animation: fadeInUp 0.5s ease forwards; }
         .slide.active .animate-delay-1 { animation-delay: 0.15s; opacity: 0; }
         .slide.active .animate-delay-2 { animation-delay: 0.3s; opacity: 0; }
         .slide.active .animate-delay-3 { animation-delay: 0.45s; opacity: 0; }
-        .source { font-size: 0.8rem; color: var(--text-muted); margin-top: 20px; }
-        .icon-inline { display: inline-flex; align-items: center; gap: 8px; }
-        .icon-inline svg { width: 20px; height: 20px; }
+        
+        .source {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="progress-bar" id="progress"></div>
+    
     <div class="slides-container">
+        
         <!-- SLIDE 1: Title -->
         <div class="slide active" id="slide-1">
             <div class="decoration primary"></div>
             <div class="decoration purple"></div>
             <img src="data:image/webp;base64,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" alt="Lexolve" style="height: 50px; margin-bottom: 40px;" class="animate">
             <h1 class="animate animate-delay-1">Building a Business<br>in an <span class="gradient-text">AI World</span></h1>
-            <p class="subtitle animate animate-delay-2" style="margin-top: 20px;">From document generator to AI-powered legal OS: a 10-year journey</p>
+            <p class="subtitle animate animate-delay-2" style="margin-top: 20px;">
+                From document generator to AI-powered legal OS: a 10-year journey
+            </p>
             <div style="margin-top: 60px;" class="animate animate-delay-3">
                 <p style="color: var(--text-secondary); font-size: 1.2rem;">Merete Nygaard</p>
                 <p style="color: var(--primary); font-size: 1.1rem;">Founder & CEO, Lexolve</p>
             </div>
         </div>
-
+        
         <!-- SLIDE 2: Why I started -->
         <div class="slide" id="slide-2">
             <span class="section-tag">Part 1: The Beginning</span>
             <h2 class="animate">Why I started <span class="gradient-text">Lexolve</span></h2>
             <div class="card-grid animate animate-delay-1" style="max-width: 1000px;">
                 <div class="card highlight-primary">
-                    <div class="card-icon"><i data-lucide="scale"></i></div>
+                    <div class="card-icon">⚖️</div>
                     <div class="card-title">10 years as a business lawyer</div>
                     <div class="card-text">I saw how hard it was for companies to understand and apply the law</div>
                 </div>
                 <div class="card highlight-primary">
-                    <div class="card-icon"><i data-lucide="target"></i></div>
+                    <div class="card-icon">🎯</div>
                     <div class="card-title">My mission</div>
                     <div class="card-text">Make it easier for companies to understand and apply legal requirements</div>
                 </div>
             </div>
-            <p class="animate animate-delay-2" style="margin-top: 40px; font-size: 1.5rem; color: var(--primary); text-align: center;">Founded in 2016</p>
+            <p class="animate animate-delay-2" style="margin-top: 40px; font-size: 1.5rem; color: var(--primary); text-align: center;">
+                Founded in 2016
+            </p>
         </div>
-
+        
         <!-- SLIDE 3: AlphaGo moment -->
         <div class="slide" id="slide-3">
             <span class="section-tag">Part 1: The Beginning</span>
             <h2 class="animate">March 2016</h2>
             <div class="comparison animate animate-delay-1" style="max-width: 900px;">
                 <div class="comparison-box" style="border-color: var(--accent-purple); text-align: center;">
-                    <div style="margin-bottom: 16px; display: flex; justify-content: center;"><i data-lucide="gamepad-2" style="width: 64px; height: 64px; color: var(--accent-purple);"></i></div>
+                    <div style="font-size: 4rem; margin-bottom: 16px;">🎮</div>
                     <h3 style="color: var(--accent-purple);">AlphaGo vs Lee Sedol</h3>
                     <p style="font-size: 1.3rem; color: var(--text-secondary); line-height: 1.6;">
                         200 million watched.<br>
@@ -187,150 +651,326 @@
                     </p>
                 </div>
             </div>
-            <p class="animate animate-delay-2" style="margin-top: 30px; font-size: 1.4rem; color: var(--text-secondary);">I started Lexolve the same period the world realized AI could do the "impossible".</p>
+            <p class="animate animate-delay-2" style="margin-top: 30px; font-size: 1.4rem; color: var(--text-secondary);">
+                I started Lexolve the same period the world realized AI could do the "impossible".
+            </p>
         </div>
-
+        
         <!-- SLIDE 4: What everyone believed -->
         <div class="slide" id="slide-4">
             <span class="section-tag">Part 2: Everyone Was Wrong</span>
             <h2 class="animate">What everyone believed in 2016-2017</h2>
             <div class="table-container animate animate-delay-1">
                 <table>
-                    <thead><tr><th>Technology</th><th>The Promise</th><th>Reality 2026</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th>Technology</th>
+                            <th>The Promise</th>
+                            <th>Reality 2026</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                        <tr><td><span class="icon-inline"><i data-lucide="link"></i> Blockchain</span></td><td>"Will revolutionize EVERYTHING"</td><td class="strikethrough">Niche</td></tr>
-                        <tr><td><span class="icon-inline"><i data-lucide="scroll-text"></i> Smart Contracts</span></td><td>"The end of lawyers"</td><td class="strikethrough">Never mainstream in legal</td></tr>
-                        <tr><td><span class="icon-inline"><i data-lucide="bar-chart-3"></i> Big Data</span></td><td>"Whoever has the most data wins"</td><td>Important, but not enough</td></tr>
-                        <tr><td><span class="icon-inline"><i data-lucide="settings"></i> Document Automation</span></td><td>"Automate all templates"</td><td class="checkmark">✓ Worked, we built this</td></tr>
+                        <tr>
+                            <td>🔗 Blockchain</td>
+                            <td>"Will revolutionize EVERYTHING"</td>
+                            <td class="strikethrough">Niche</td>
+                        </tr>
+                        <tr>
+                            <td>📜 Smart Contracts</td>
+                            <td>"The end of lawyers"</td>
+                            <td class="strikethrough">Never mainstream in legal</td>
+                        </tr>
+                        <tr>
+                            <td>📊 Big Data</td>
+                            <td>"Whoever has the most data wins"</td>
+                            <td>Important, but not enough</td>
+                        </tr>
+                        <tr>
+                            <td>⚙️ Document Automation</td>
+                            <td>"Automate all templates"</td>
+                            <td class="checkmark">✓ Worked, we built this</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
+        
         <!-- SLIDE 5: What no one talked about -->
         <div class="slide" id="slide-5">
             <span class="section-tag">Part 2: Everyone Was Wrong</span>
             <h2 class="animate">What <span class="gradient-text-warm">no one</span> talked about:</h2>
             <div class="card-grid card-grid-3 animate animate-delay-1" style="max-width: 1000px;">
-                <div class="card highlight-purple"><div class="card-icon"><i data-lucide="brain"></i></div><div class="card-title">LLMs</div><div class="card-text">Large Language Models</div></div>
-                <div class="card highlight-purple"><div class="card-icon"><i data-lucide="sparkles"></i></div><div class="card-title">Generative AI</div><div class="card-text">AI that creates content</div></div>
-                <div class="card highlight-purple"><div class="card-icon"><i data-lucide="globe"></i></div><div class="card-title">Foundation Models</div><div class="card-text">One model that generalizes to everything</div></div>
+                <div class="card highlight-purple">
+                    <div class="card-icon">🧠</div>
+                    <div class="card-title">LLMs</div>
+                    <div class="card-text">Large Language Models</div>
+                </div>
+                <div class="card highlight-purple">
+                    <div class="card-icon">✨</div>
+                    <div class="card-title">Generative AI</div>
+                    <div class="card-text">AI that creates content</div>
+                </div>
+                <div class="card highlight-purple">
+                    <div class="card-icon">🌐</div>
+                    <div class="card-title">Foundation Models</div>
+                    <div class="card-text">One model that generalizes to everything</div>
+                </div>
             </div>
-            <p class="quote animate animate-delay-2" style="margin-top: 40px; max-width: 900px;">In 2017, academics wrote about "Smart contracts, the end of classic contract law".<br><br><strong style="color: var(--primary);">In 2026, it's ChatGPT, not blockchain, that changed legal work.</strong></p>
+            <p class="quote animate animate-delay-2" style="margin-top: 40px; max-width: 900px;">
+                In 2017, academics wrote about "Smart contracts, the end of classic contract law".<br><br>
+                <strong style="color: var(--primary);">In 2026, it's ChatGPT, not blockchain, that changed legal work.</strong>
+            </p>
         </div>
-
+        
         <!-- SLIDE 6: The problem with legal -->
         <div class="slide" id="slide-6">
             <span class="section-tag">Part 3: AI-First Strategy</span>
             <h2 class="animate">The problem with legal:</h2>
             <div class="vs-box problem animate animate-delay-1" style="max-width: 900px;">
-                <h3 style="text-align: left; margin-left: 20px;"><i data-lucide="lock"></i> How legal works</h3>
+                <h3 style="text-align: left; margin-left: 20px;">🔒 How legal works</h3>
                 <div class="list" style="padding: 0 20px;">
-                    <div class="list-item"><span class="list-icon" style="color: var(--accent-red);"><i data-lucide="x"></i></span><span><strong style="color: var(--accent-red);">Confidential</strong>, lawyers cannot share</span></div>
-                    <div class="list-item"><span class="list-icon" style="color: var(--accent-red);"><i data-lucide="x"></i></span><span><strong style="color: var(--accent-red);">In silos</strong>, each case lives on its own</span></div>
-                    <div class="list-item"><span class="list-icon" style="color: var(--accent-red);"><i data-lucide="x"></i></span><span><strong style="color: var(--accent-red);">1:1</strong>, no scalable knowledge sharing</span></div>
-                    <div class="list-item"><span class="list-icon" style="color: var(--accent-red);"><i data-lucide="x"></i></span><span><strong style="color: var(--accent-red);">Paywalled</strong>, legal databases only affordable for law firms</span></div>
-                    <div class="list-item"><span class="list-icon" style="color: var(--accent-red);"><i data-lucide="x"></i></span><span><strong style="color: var(--accent-red);">Legal advice monopoly</strong>, only lawyers could give advice (until 2024)</span></div>
+                    <div class="list-item">
+                        <span class="list-icon" style="color: var(--accent-red);">✗</span>
+                        <span><strong style="color: var(--accent-red);">Confidential</strong>, lawyers cannot share</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon" style="color: var(--accent-red);">✗</span>
+                        <span><strong style="color: var(--accent-red);">In silos</strong>, each case lives on its own</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon" style="color: var(--accent-red);">✗</span>
+                        <span><strong style="color: var(--accent-red);">1:1</strong>, no scalable knowledge sharing</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon" style="color: var(--accent-red);">✗</span>
+                        <span><strong style="color: var(--accent-red);">Paywalled</strong>, legal databases only affordable for law firms</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon" style="color: var(--accent-red);">✗</span>
+                        <span><strong style="color: var(--accent-red);">Legal advice monopoly</strong>, only lawyers could give advice (until 2024)</span>
+                    </div>
                 </div>
             </div>
         </div>
-
+        
         <!-- SLIDE 7: Our strategy -->
         <div class="slide" id="slide-7">
             <span class="section-tag">Part 3: AI-First Strategy</span>
             <h2 class="animate">Our strategy: <span class="gradient-text">Automate what we can</span></h2>
             <div class="vs-box solution animate animate-delay-1" style="max-width: 900px;">
-                <h3 style="text-align: left; margin-left: 20px;"><i data-lucide="check-circle"></i> What we built</h3>
+                <h3 style="text-align: left; margin-left: 20px;">✓ What we built</h3>
                 <div class="list" style="padding: 0 20px;">
-                    <div class="list-item"><span class="list-icon" style="color: var(--primary);"><i data-lucide="check"></i></span><span><strong style="color: var(--primary);">Open</strong>, legal content anyone can use</span></div>
-                    <div class="list-item"><span class="list-icon" style="color: var(--primary);"><i data-lucide="check"></i></span><span><strong style="color: var(--primary);">Structured</strong>, rules and logic AI can operate on</span></div>
-                    <div class="list-item"><span class="list-icon" style="color: var(--primary);"><i data-lucide="check"></i></span><span><strong style="color: var(--primary);">Scalable</strong>, built once, used by thousands</span></div>
+                    <div class="list-item">
+                        <span class="list-icon" style="color: var(--primary);">✓</span>
+                        <span><strong style="color: var(--primary);">Open</strong>, legal content anyone can use</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon" style="color: var(--primary);">✓</span>
+                        <span><strong style="color: var(--primary);">Structured</strong>, rules and logic AI can operate on</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon" style="color: var(--primary);">✓</span>
+                        <span><strong style="color: var(--primary);">Scalable</strong>, built once, used by thousands</span>
+                    </div>
                 </div>
             </div>
-            <p class="animate animate-delay-2" style="margin-top: 30px; font-size: 1.4rem; color: var(--text-secondary); text-align: center;">We knew <span style="color: var(--primary);">structured legal data would be gold</span>.<br>The question was when AI would be ready to use it.</p>
+            <p class="animate animate-delay-2" style="margin-top: 30px; font-size: 1.4rem; color: var(--text-secondary); text-align: center;">
+                We knew <span style="color: var(--primary);">structured legal data would be gold</span>.<br>
+                The question was when AI would be ready to use it.
+            </p>
         </div>
+        
         <!-- SLIDE 8: Timeline 2016-2019 -->
         <div class="slide" id="slide-8">
             <span class="section-tag">Part 4: The Long Road</span>
             <h2 class="animate">Building the foundation: 2016-2019</h2>
             <div class="timeline animate animate-delay-1">
-                <div class="timeline-item"><div class="timeline-year" style="color: var(--accent-red);">2016</div><div class="timeline-dot highlight"></div><span class="timeline-label">Founded</span></div>
-                <div class="timeline-item"><div class="timeline-year">2017</div><div class="timeline-dot"></div><span class="timeline-label">MVP shareholder agreement</span></div>
-                <div class="timeline-item"><div class="timeline-year" style="color: var(--accent-purple);">2018</div><div class="timeline-dot active"></div><span class="timeline-label">Automation platform launched</span></div>
-                <div class="timeline-item"><div class="timeline-year">2019</div><div class="timeline-dot"></div><span class="timeline-label">Marketplace with lawyers</span></div>
+                <div class="timeline-item">
+                    <div class="timeline-year" style="color: var(--accent-red);">2016</div>
+                    <div class="timeline-dot highlight"></div>
+                    <span class="timeline-label">Founded</span>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2017</div>
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-label">MVP shareholder agreement</span>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year" style="color: var(--accent-purple);">2018</div>
+                    <div class="timeline-dot active"></div>
+                    <span class="timeline-label">Automation platform launched</span>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2019</div>
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-label">Marketplace with lawyers</span>
+                </div>
             </div>
             <div class="card-grid animate animate-delay-2" style="margin-top: 30px;">
-                <div class="card"><div class="card-icon"><i data-lucide="file-text"></i></div><div class="card-title">2017: First MVP</div><div class="card-text">Shareholder agreement generator with structured legal logic</div></div>
-                <div class="card highlight-primary"><div class="card-icon"><i data-lucide="home"></i></div><div class="card-title">2018: Rental Agreements</div><div class="card-text">300,000 documents generated for Norwegian Homeowners Association</div></div>
+                <div class="card">
+                    <div class="card-icon">📄</div>
+                    <div class="card-title">2017: First MVP</div>
+                    <div class="card-text">Shareholder agreement generator with structured legal logic</div>
+                </div>
+                <div class="card highlight-primary">
+                    <div class="card-icon">🏠</div>
+                    <div class="card-title">2018: Rental Agreements</div>
+                    <div class="card-text">300,000 documents generated for Norwegian Homeowners Association</div>
+                </div>
             </div>
         </div>
-
+        
         <!-- SLIDE 9: 2017 detail -->
         <div class="slide" id="slide-9">
             <span class="section-tag">Part 4: The Long Road</span>
             <h2 class="animate">2017: First MVP</h2>
             <div class="card-grid card-grid-4 animate animate-delay-1">
-                <div class="card highlight-red"><div class="card-title" style="color: var(--accent-red);">Cost</div><div class="big-number" style="font-size: 2.5rem; color: var(--accent-red);">100k NOK</div></div>
-                <div class="card highlight-red"><div class="card-title" style="color: var(--accent-red);">Time</div><div class="big-number" style="font-size: 2.5rem; color: var(--accent-red);">3-4 months</div></div>
-                <div class="card highlight-red"><div class="card-title" style="color: var(--accent-red);">Team</div><div class="big-number" style="font-size: 2.5rem; color: var(--accent-red);">1 UX + 1 Dev</div></div>
-                <div class="card highlight-red"><div class="card-title" style="color: var(--accent-red);">Logic rules</div><div class="big-number" style="font-size: 2.5rem; color: var(--accent-red);">200+</div></div>
+                <div class="card highlight-red">
+                    <div class="card-title" style="color: var(--accent-red);">Cost</div>
+                    <div class="big-number" style="font-size: 2.5rem; color: var(--accent-red);">100k NOK</div>
+                </div>
+                <div class="card highlight-red">
+                    <div class="card-title" style="color: var(--accent-red);">Time</div>
+                    <div class="big-number" style="font-size: 2.5rem; color: var(--accent-red);">3-4 months</div>
+                </div>
+                <div class="card highlight-red">
+                    <div class="card-title" style="color: var(--accent-red);">Team</div>
+                    <div class="big-number" style="font-size: 2.5rem; color: var(--accent-red);">1 UX + 1 Dev</div>
+                </div>
+                <div class="card highlight-red">
+                    <div class="card-title" style="color: var(--accent-red);">Logic rules</div>
+                    <div class="big-number" style="font-size: 2.5rem; color: var(--accent-red);">200+</div>
+                </div>
             </div>
-            <p class="quote animate animate-delay-2" style="margin-top: 40px;">200+ if/then rules. Each one I had to think through myself.<br>Not sexy AI, just <strong style="color: var(--primary);">meticulous structuring of legal knowledge.</strong></p>
+            <p class="quote animate animate-delay-2" style="margin-top: 40px;">
+                200+ if/then rules. Each one I had to think through myself.<br>
+                Not sexy AI, just <strong style="color: var(--primary);">meticulous structuring of legal knowledge.</strong>
+            </p>
         </div>
-
+        
         <!-- SLIDE 10: 2020-2022 -->
         <div class="slide" id="slide-10">
             <span class="section-tag">Part 4: The Long Road</span>
             <h2 class="animate">2020-2022: <span class="gradient-text">Digital Lawyer</span></h2>
             <div class="timeline animate animate-delay-1">
-                <div class="timeline-item"><div class="timeline-year" style="color: var(--text-muted);">2020</div><div class="timeline-dot"></div><span class="timeline-label">Corona year, low activity</span></div>
-                <div class="timeline-item"><div class="timeline-year" style="color: var(--accent-purple);">2021</div><div class="timeline-dot active"></div><span class="timeline-label">Expanding beyond templates</span></div>
-                <div class="timeline-item"><div class="timeline-year" style="color: var(--primary);">2022</div><div class="timeline-dot success"></div><span class="timeline-label">Platform launch + ChatGPT</span></div>
+                <div class="timeline-item">
+                    <div class="timeline-year" style="color: var(--text-muted);">2020</div>
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-label">Corona year, low activity</span>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year" style="color: var(--accent-purple);">2021</div>
+                    <div class="timeline-dot active"></div>
+                    <span class="timeline-label">Expanding beyond templates</span>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year" style="color: var(--primary);">2022</div>
+                    <div class="timeline-dot success"></div>
+                    <span class="timeline-label">Platform launch + ChatGPT</span>
+                </div>
             </div>
             <div class="card-grid animate animate-delay-2" style="margin-top: 30px;">
-                <div class="card"><div class="card-icon"><i data-lucide="crosshair"></i></div><div class="card-title">2020-2021: New focus</div><div class="card-text">Beyond templates<br>Proactive advisor<br>Solving problems before they arise</div></div>
-                <div class="card highlight-primary"><div class="card-icon"><i data-lucide="rocket"></i></div><div class="card-title">2022: Launch</div><div class="card-text">Lawyer in the loop goes live<br>Health checks for companies<br>Complex processes with legal backup</div></div>
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title">2020-2021: New focus</div>
+                    <div class="card-text">
+                        Beyond templates<br>
+                        Proactive advisor<br>
+                        Solving problems before they arise
+                    </div>
+                </div>
+                <div class="card highlight-primary">
+                    <div class="card-icon">🚀</div>
+                    <div class="card-title">2022: Launch</div>
+                    <div class="card-text">
+                        Lawyer in the loop goes live<br>
+                        Health checks for companies<br>
+                        Complex processes with legal backup
+                    </div>
+                </div>
             </div>
         </div>
-
+        
         <!-- SLIDE 11: What we built -->
         <div class="slide" id="slide-11">
             <span class="section-tag">Part 4: The Long Road</span>
             <h2 class="animate">AI-first: <span class="gradient-text">Betting on the future</span></h2>
-            <p class="subtitle animate animate-delay-1" style="margin-bottom: 30px;">We knew the technology to build a digital lawyer would come, even if it wasn't effective enough yet.</p>
+            <p class="subtitle animate animate-delay-1" style="margin-bottom: 30px;">
+                We knew the technology to build a digital lawyer would come, even if it wasn't effective enough yet.
+            </p>
             <div class="asset-row animate animate-delay-2">
-                <div class="asset-box"><div class="asset-icon"><i data-lucide="cog"></i></div><div class="title">Legal logic library</div><div class="desc">Structured rules AI can operate on with high accuracy</div></div>
-                <div class="asset-box"><div class="asset-icon"><i data-lucide="library"></i></div><div class="title">300+ articles</div><div class="desc">Quality-assured legal content AI can reference</div></div>
-                <div class="asset-box"><div class="asset-icon"><i data-lucide="clipboard-list"></i></div><div class="title">Document generators</div><div class="desc">Decision trees for legal choices</div></div>
-                <div class="asset-box"><div class="asset-icon"><i data-lucide="building-2"></i></div><div class="title">8 years of user data</div><div class="desc">What Norwegian SMBs actually need</div></div>
+                <div class="asset-box">
+                    <div class="asset-icon">⚙️</div>
+                    <div class="title">Legal logic library</div>
+                    <div class="desc">Structured rules AI can operate on with high accuracy</div>
+                </div>
+                <div class="asset-box">
+                    <div class="asset-icon">📚</div>
+                    <div class="title">300+ articles</div>
+                    <div class="desc">Quality-assured legal content AI can reference</div>
+                </div>
+                <div class="asset-box">
+                    <div class="asset-icon">📋</div>
+                    <div class="title">Document generators</div>
+                    <div class="desc">Decision trees for legal choices</div>
+                </div>
+                <div class="asset-box">
+                    <div class="asset-icon">🏢</div>
+                    <div class="title">8 years of user data</div>
+                    <div class="desc">What Norwegian SMBs actually need</div>
+                </div>
             </div>
-            <p class="animate animate-delay-3" style="margin-top: 30px; font-size: 1.3rem; color: var(--text-secondary);">Building the foundation while waiting for AI to catch up.</p>
+            <p class="animate animate-delay-3" style="margin-top: 30px; font-size: 1.3rem; color: var(--text-secondary);">
+                Building the foundation while waiting for AI to catch up.
+            </p>
         </div>
-
+        
         <!-- SLIDE 12: ChatGPT turning point -->
         <div class="slide" id="slide-12">
             <span class="section-tag">Part 5: The Turning Point</span>
             <h2 class="animate">November 30, 2022</h2>
             <div class="big-number gradient-text animate animate-delay-1" style="font-size: 7rem;">ChatGPT</div>
             <div class="card-grid card-grid-3 animate animate-delay-2" style="margin-top: 30px; max-width: 900px;">
-                <div class="card"><div class="big-number primary" style="font-size: 3rem;">100M</div><div class="card-text">users in 2 months</div></div>
-                <div class="card"><div class="big-number purple" style="font-size: 3rem;">11% → 30%</div><div class="card-text">AI adoption in law firms</div></div>
-                <div class="card"><div class="big-number primary" style="font-size: 3rem;">Everything</div><div class="card-text">changed overnight</div></div>
+                <div class="card">
+                    <div class="big-number primary" style="font-size: 3rem;">100M</div>
+                    <div class="card-text">users in 2 months</div>
+                </div>
+                <div class="card">
+                    <div class="big-number purple" style="font-size: 3rem;">11% → 30%</div>
+                    <div class="card-text">AI adoption in law firms</div>
+                </div>
+                <div class="card">
+                    <div class="big-number primary" style="font-size: 3rem;">Everything</div>
+                    <div class="card-text">changed overnight</div>
+                </div>
             </div>
             <p class="source">Source: ABA Legal Technology Survey 2024</p>
         </div>
-
+        
         <!-- SLIDE 13: Our advantage -->
         <div class="slide" id="slide-13">
             <span class="section-tag">Part 5: The Turning Point</span>
             <h2 class="animate">Our <span class="gradient-text">advantage</span></h2>
             <div class="vs-container animate animate-delay-1">
-                <div class="vs-box problem"><h3><i data-lucide="bot"></i> Most legal tech</h3><p style="font-size: 1.2rem; color: var(--text-secondary); line-height: 1.7;">Option 1: Thin wrapper around GPT-4<br>Option 2: Start from scratch</p></div>
+                <div class="vs-box problem">
+                    <h3>🤖 Most legal tech</h3>
+                    <p style="font-size: 1.2rem; color: var(--text-secondary); line-height: 1.7;">
+                        Option 1: Thin wrapper around GPT-4<br>
+                        Option 2: Start from scratch
+                    </p>
+                </div>
                 <div class="vs-circle">VS</div>
-                <div class="vs-box solution"><h3><i data-lucide="gem"></i> Lexolve</h3><p style="font-size: 1.2rem; color: var(--text-secondary); line-height: 1.7;">Option 3: 6 years of structured<br>legal logic and 300 articles<br><strong style="color: var(--primary);">already in place</strong></p></div>
+                <div class="vs-box solution">
+                    <h3>💎 Lexolve</h3>
+                    <p style="font-size: 1.2rem; color: var(--text-secondary); line-height: 1.7;">
+                        Option 3: 6 years of structured<br>
+                        legal logic and 300 articles<br>
+                        <strong style="color: var(--primary);">already in place</strong>
+                    </p>
+                </div>
             </div>
         </div>
-
+        
         <!-- SLIDE 14: Generic AI vs Lexolve AI -->
         <div class="slide" id="slide-14">
             <span class="section-tag">Part 5: The Turning Point</span>
@@ -338,42 +978,276 @@
             <div class="comparison animate animate-delay-1">
                 <div class="comparison-box old">
                     <h3>Generic AI on legal</h3>
-                    <div class="comparison-row"><span class="comparison-label">Training</span><span class="comparison-value">Internet (unstructured)</span></div>
-                    <div class="comparison-row"><span class="comparison-label">Output</span><span class="comparison-value">Generic advice</span></div>
-                    <div class="comparison-row"><span class="comparison-label">Risk</span><span class="comparison-value"><i data-lucide="alert-triangle" style="width: 18px; height: 18px;"></i> Hallucinates</span></div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Training</span>
+                        <span class="comparison-value">Internet (unstructured)</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Output</span>
+                        <span class="comparison-value">Generic advice</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Risk</span>
+                        <span class="comparison-value">⚠️ Hallucinates</span>
+                    </div>
                 </div>
-                <div class="comparison-arrow"><i data-lucide="arrow-right" style="width: 48px; height: 48px;"></i></div>
+                <div class="comparison-arrow">→</div>
                 <div class="comparison-box new">
                     <h3>Lexolve AI</h3>
-                    <div class="comparison-row"><span class="comparison-label">Training</span><span class="comparison-value">Legal DB + 300 articles + logic</span></div>
-                    <div class="comparison-row"><span class="comparison-label">Output</span><span class="comparison-value">Specific, verified advice</span></div>
-                    <div class="comparison-row"><span class="comparison-label">Risk</span><span class="comparison-value"><i data-lucide="check" style="width: 18px; height: 18px;"></i> Operates on rules</span></div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Training</span>
+                        <span class="comparison-value">Legal DB + 300 articles + logic</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Output</span>
+                        <span class="comparison-value">Specific, verified advice</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Risk</span>
+                        <span class="comparison-value">✓ Operates on rules</span>
+                    </div>
                 </div>
             </div>
         </div>
-H21zM25,15H26V16H25zM2,16H3V17H2zM8,16H9V17H8zM9,16H10V17H9zM16,16H17V17H16zM17,16H18V17H17zM18,16H19V17H18zM20,16H21V17H20zM21,16H22V17H21zM22,16H23V17H22zM23,16H24V17H23zM25,16H26V17H25zM26,16H27V17H26zM2,17H3V18H2zM4,17H5V18H4zM5,17H6V18H5zM7,17H8V18H7zM10,17H11V18H10zM11,17H12V18H11zM13,17H14V18H13zM16,17H17V18H16zM17,17H18V18H17zM21,17H22V18H21zM23,17H24V18H23zM24,17H25V18H24zM26,17H27V18H26zM2,18H3V19H2zM4,18H5V19H4zM6,18H7V19H6zM8,18H9V19H8zM9,18H10V19H9zM11,18H12V19H11zM13,18H14V19H13zM14,18H15V19H14zM15,18H16V19H15zM16,18H17V19H16zM18,18H19V19H18zM19,18H20V19H19zM20,18H21V19H20zM21,18H22V19H21zM22,18H23V19H22zM24,18H25V19H24zM10,19H11V20H10zM12,19H13V20H12zM13,19H14V20H13zM16,19H17V20H16zM18,19H20V20H18zM22,19H23V20H22zM2,20H3V21H2zM3,20H4V21H3zM4,20H5V21H4zM5,20H6V21H5zM6,20H7V21H6zM7,20H8V21H7zM8,20H9V21H8zM10,20H11V21H10zM11,20H12V21H11zM13,20H14V21H13zM18,20H19V21H18zM20,20H21V21H20zM22,20H23V21H22zM26,20H27V21H26zM2,21H3V22H2zM8,21H9V22H8zM10,21H11V22H10zM13,21H14V22H13zM14,21H15V22H14zM17,21H18V22H17zM18,21H19V22H18zM22,21H23V22H22zM26,21H27V22H26zM2,22H3V23H2zM4,22H5V23H4zM5,22H6V23H5zM6,22H7V23H6zM8,22H9V23H8zM11,22H12V23H11zM14,22H15V23H14zM15,22H16V23H15zM16,22H17V23H16zM17,22H18V23H17zM18,22H19V23H18zM19,22H20V23H19zM20,22H21V23H20zM21,22H22V23H21zM22,22H23V23H22zM24,22H25V23H24zM25,22H26V23H25zM2,23H3V24H2zM4,23H5V24H4zM5,23H6V24H5zM6,23H7V24H6zM8,23H9V24H8zM11,23H12V24H11zM12,23H13V24H12zM13,23H14V24H13zM16,23H17V24H16zM18,23H19V24H18zM19,23H20V24H19zM20,23H21V24H20zM25,23H26V24H25zM26,23H27V24H26zM2,24H3V25H2zM4,24H5V25H4zM5,24H6V25H5zM6,24H7V25H6zM8,24H9V25H8zM11,24H12V25H11zM12,24H13V25H12zM14,24H15V25H14zM16,24H17V25H16zM23,24H24V25H23zM24,24H25V25H24zM26,24H27V25H26zM2,25H3V26H2zM8,25H9V26H8zM10,25H11V26H10zM11,25H12V26H11zM13,25H14V26H13zM16,25H17V26H16zM17,25H18V26H17zM18,25H19V26H18zM21,25H22V26H21zM22,25H23V26H22zM26,25H27V26H26zM2,26H3V27H2zM3,26H4V27H3zM4,26H5V27H4zM5,26H6V27H5zM6,26H7V27H6zM7,26H8V27H7zM8,26H9V27H8zM10,26H11V27H10zM14,26H15V27H14zM16,26H17V27H16zM18,26H19V27H18zM23,26H24V27H23zM26,26H27V27H26z" fill="#000000"/></svg>
+        
+        <!-- SLIDE 15: 2023-2025 -->
+        <div class="slide" id="slide-15">
+            <span class="section-tag">Part 5: Acceleration</span>
+            <h2 class="animate">2023-2025: <span class="gradient-text">From platform to OS</span></h2>
+            <div class="card-grid card-grid-3 animate animate-delay-1">
+                <div class="card highlight-purple">
+                    <div class="card-icon">🧠</div>
+                    <div class="card-title">2023: Legal OS</div>
+                    <div class="card-text">
+                        HR module<br>
+                        Shareholder module<br>
+                        Contract module
+                    </div>
                 </div>
-                <p style="font-size: 1.3rem; color: var(--text-muted);">verktoy.lexolve.com</p>
+                <div class="card">
+                    <div class="card-icon">🤖</div>
+                    <div class="card-title">2024: AI integration</div>
+                    <div class="card-text">
+                        Entity extraction<br>
+                        Auto-reminders<br>
+                        Lawyer insurance partnership
+                    </div>
+                </div>
+                <div class="card highlight-primary">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title">2025: Lexolve AI</div>
+                    <div class="card-text">
+                        Legal database + own sources<br>
+                        10 hrs lawyer advice included<br>
+                        Research project
+                    </div>
+                </div>
+            </div>
+            <p class="animate animate-delay-2" style="margin-top: 30px; font-size: 1.4rem; color: var(--primary); text-align: center;">
+                The only domain-specific AI trained on Norwegian law that is openly available
+            </p>
+        </div>
+        
+        <!-- SLIDE 16: Circle closes -->
+        <div class="slide" id="slide-16">
+            <span class="section-tag">Part 5: Acceleration</span>
+            <h2 class="animate">The circle closes: <span class="gradient-text">5 years early</span></h2>
+            <div class="comparison animate animate-delay-1">
+                <div class="comparison-box" style="border-color: var(--text-muted);">
+                    <h3 style="color: var(--text-muted);">2021: The Vision</h3>
+                    <div class="comparison-row">
+                        <span class="comparison-value" style="color: var(--text-muted);">Case agent</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-value" style="color: var(--text-muted);">Lawyer in the loop</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-value" style="color: var(--text-muted);">Proactive AI</span>
+                    </div>
+                </div>
+                <div class="comparison-arrow">→</div>
+                <div class="comparison-box new">
+                    <h3>2025: Realized</h3>
+                    <div class="comparison-row">
+                        <span class="comparison-value">AI-agentified</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-value">Back (in research)</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-value">Lexolve AI</span>
+                    </div>
+                </div>
+            </div>
+            <p class="quote animate animate-delay-2" style="margin-top: 30px;">
+                Same idea. Different implementation.<br>
+                Now possible at <strong style="color: var(--primary);">10x speed with far fewer resources.</strong>
+            </p>
+        </div>
+        
+        <!-- SLIDE 17: The punchline -->
+        <div class="slide" id="slide-17">
+            <span class="section-tag">Part 6: The 10X Moment</span>
+            <h2 class="animate">2026: <span class="gradient-text">New way of building</span></h2>
+            <div class="comparison animate animate-delay-1">
+                <div class="comparison-box old">
+                    <h3>2017</h3>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Cost</span>
+                        <span class="comparison-value">100,000 NOK</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Time</span>
+                        <span class="comparison-value">3-4 months</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Team</span>
+                        <span class="comparison-value">UX + Developer</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Products/year</span>
+                        <span class="comparison-value">2-3</span>
+                    </div>
+                </div>
+                <div class="comparison-arrow">
+                    <div class="big-number" style="font-size: 3.5rem; color: var(--primary);">50x</div>
+                </div>
+                <div class="comparison-box new">
+                    <h3>2026</h3>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Cost</span>
+                        <span class="comparison-value">~2,000 NOK</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Time</span>
+                        <span class="comparison-value">&lt; 1 week</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Team</span>
+                        <span class="comparison-value">Just me</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Products/year</span>
+                        <span class="comparison-value">50+</span>
+                    </div>
+                </div>
             </div>
         </div>
-
+        
+        <!-- SLIDE 18: 20 MVPs -->
+        <div class="slide" id="slide-18">
+            <span class="section-tag">Part 6: The 10X Moment</span>
+            <div class="big-number gradient-text animate">20</div>
+            <h2 class="animate animate-delay-1">products built in one week</h2>
+            <div class="card-grid card-grid-3 animate animate-delay-2" style="margin-top: 30px;">
+                <div class="card">
+                    <div class="card-icon">👤</div>
+                    <div class="card-title">No developer</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎨</div>
+                    <div class="card-title">No UX designer</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📢</div>
+                    <div class="card-title">No marketer</div>
+                </div>
+            </div>
+            <p class="animate animate-delay-3" style="margin-top: 40px; font-size: 1.5rem; color: var(--text-secondary);">
+                Let me show you some examples...
+            </p>
+        </div>
+        
+        <!-- SLIDE 19: GTM changed -->
+        <div class="slide" id="slide-19">
+            <span class="section-tag">Part 6: The 10X Moment</span>
+            <h2 class="animate">Go-To-Market has <span class="gradient-text">changed</span></h2>
+            <div style="max-width: 1000px; width: 100%;">
+                <div class="animate animate-delay-1" style="margin-bottom: 40px;">
+                    <h3 style="color: var(--accent-red); margin-bottom: 16px;">Before (2017-2022):</h3>
+                    <div class="flow">
+                        <div class="flow-item">Idea</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-item">Spec</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-item">Design</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-item">Development</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-item">Test</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-item">Learn</div>
+                    </div>
+                    <p style="color: var(--text-muted); margin-top: 12px; text-align: center;">3-6 months | 100k+ | High risk</p>
+                </div>
+                <div class="animate animate-delay-2">
+                    <h3 style="color: var(--primary); margin-bottom: 16px;">Now (2026):</h3>
+                    <div class="flow">
+                        <div class="flow-item" style="border-color: var(--primary);">Idea</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-item" style="border-color: var(--primary);">Build in 1 week</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-item" style="border-color: var(--primary);">Test</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-item" style="border-color: var(--primary);">Iterate or discard</div>
+                    </div>
+                    <p style="color: var(--primary); margin-top: 12px; text-align: center;">1 week | ~2,000 NOK | Low risk</p>
+                </div>
+            </div>
+            <p class="animate animate-delay-3" style="margin-top: 30px; font-size: 1.4rem; color: var(--text-secondary);">
+                Failure rate is the same (~80%). <strong style="color: var(--primary);">Learning speed is 10x.</strong>
+            </p>
+        </div>
+        
+        <!-- SLIDE 20: MVP Demos with QR -->
+        <div class="slide" id="slide-20">
+            <span class="section-tag">Part 6: The 10X Moment</span>
+            <h2 class="animate">Try some of the <span class="gradient-text">20 products</span></h2>
+            <div class="animate animate-delay-1" style="display: flex; flex-direction: column; align-items: center; gap: 40px;">
+                <p style="font-size: 1.5rem; color: var(--text-secondary);">
+                    Scan to explore products I built in one week
+                </p>
+                <div style="background: white; padding: 32px; border-radius: var(--radius);">
+                    <svg width="300" height="300" viewBox="0 0 29 29" xmlns="http://www.w3.org/2000/svg"><path d="M2,2H3V3H2zM3,2H4V3H3zM4,2H5V3H4zM5,2H6V3H5zM6,2H7V3H6zM7,2H8V3H7zM8,2H9V3H8zM11,2H12V3H11zM12,2H13V3H12zM13,2H14V3H13zM15,2H16V3H15zM16,2H17V3H16zM20,2H21V3H20zM21,2H22V3H21zM22,2H23V3H22zM23,2H24V3H23zM24,2H25V3H24zM25,2H26V3H25zM26,2H27V3H26zM2,3H3V4H2zM8,3H9V4H8zM13,3H14V4H13zM14,3H15V4H14zM16,3H17V4H16zM20,3H21V4H20zM26,3H27V4H26zM2,4H3V5H2zM4,4H5V5H4zM5,4H6V5H5zM6,4H7V5H6zM8,4H9V5H8zM11,4H12V5H11zM12,4H13V5H12zM13,4H14V5H13zM16,4H17V5H16zM17,4H18V5H17zM18,4H19V5H18zM20,4H21V5H20zM22,4H23V5H22zM23,4H24V5H23zM24,4H25V5H24zM26,4H27V5H26zM2,5H3V6H2zM4,5H5V6H4zM5,5H6V6H5zM6,5H7V6H6zM8,5H9V6H8zM10,5H11V6H10zM12,5H13V6H12zM13,5H14V6H13zM14,5H15V6H14zM15,5H16V6H15zM17,5H18V6H17zM18,5H19V6H18zM20,5H21V6H20zM22,5H23V6H22zM23,5H24V6H23zM24,5H25V6H24zM26,5H27V6H26zM2,6H3V7H2zM4,6H5V7H4zM5,6H6V7H5zM6,6H7V7H6zM8,6H9V7H8zM10,6H11V7H10zM12,6H13V7H12zM14,6H15V7H14zM15,6H16V7H15zM16,6H17V7H16zM18,6H19V7H18zM20,6H21V7H20zM22,6H23V7H22zM23,6H24V7H23zM24,6H25V7H24zM26,6H27V7H26zM2,7H3V8H2zM8,7H9V8H8zM11,7H12V8H11zM12,7H13V8H12zM20,7H21V8H20zM26,7H27V8H26zM2,8H3V9H2zM3,8H4V9H3zM4,8H5V9H4zM5,8H6V9H5zM6,8H7V9H6zM7,8H8V9H7zM8,8H9V9H8zM10,8H11V9H10zM12,8H13V9H12zM14,8H15V9H14zM16,8H17V9H16zM18,8H19V9H18zM20,8H21V9H20zM21,8H22V9H21zM22,8H23V9H22zM23,8H24V9H23zM24,8H25V9H24zM25,8H26V9H25zM26,8H27V9H26zM11,9H12V10H11zM13,9H14V10H13zM17,9H18V10H17zM18,9H19V10H18zM2,10H3V11H2zM3,10H4V11H3zM7,10H8V11H7zM8,10H9V11H8zM9,10H10V11H9zM11,10H12V11H11zM12,10H13V11H12zM13,10H14V11H13zM14,10H15V11H14zM15,10H16V11H15zM16,10H17V11H16zM22,10H23V11H22zM23,10H24V11H23zM3,11H4V12H3zM4,11H5V12H4zM5,11H6V12H5zM6,11H7V12H6zM9,11H10V12H9zM12,11H13V12H12zM13,11H14V12H13zM14,11H15V12H14zM15,11H16V12H15zM16,11H17V12H16zM17,11H18V12H17zM18,11H19V12H18zM21,11H22V12H21zM22,11H23V12H22zM23,11H24V12H23zM24,11H25V12H24zM25,11H26V12H25zM2,12H3V13H2zM4,12H5V13H4zM5,12H6V13H5zM8,12H9V13H8zM10,12H11V13H10zM11,12H12V13H11zM15,12H16V13H15zM16,12H17V13H16zM17,12H18V13H17zM18,12H19V13H18zM19,12H20V13H19zM20,12H21V13H20zM22,12H23V13H22zM23,12H24V13H23zM25,12H26V13H25zM26,12H27V13H26zM3,13H4V14H3zM7,13H8V14H7zM12,13H13V14H12zM16,13H17V14H16zM19,13H20V14H19zM20,13H21V14H20zM21,13H22V14H21zM23,13H24V14H23zM26,13H27V14H26zM3,14H4V15H3zM8,14H9V15H8zM10,14H11V15H10zM11,14H12V15H11zM12,14H13V15H12zM14,14H15V15H14zM20,14H21V15H20zM26,14H27V15H26zM2,15H3V16H2zM4,15H5V16H4zM11,15H12V16H11zM12,15H13V16H12zM13,15H14V16H13zM15,15H16V16H15zM17,15H18V16H17zM18,15H19V16H18zM19,15H20V16H19zM21,15H22V16H21zM25,15H26V16H25zM2,16H3V17H2zM8,16H9V17H8zM9,16H10V17H9zM16,16H17V17H16zM17,16H18V17H17zM18,16H19V17H18zM20,16H21V17H20zM21,16H22V17H21zM22,16H23V17H22zM23,16H24V17H23zM25,16H26V17H25zM26,16H27V17H26zM2,17H3V18H2zM4,17H5V18H4zM5,17H6V18H5zM7,17H8V18H7zM10,17H11V18H10zM11,17H12V18H11zM13,17H14V18H13zM16,17H17V18H16zM17,17H18V18H17zM21,17H22V18H21zM23,17H24V18H23zM24,17H25V18H24zM26,17H27V18H26zM2,18H3V19H2zM4,18H5V19H4zM6,18H7V19H6zM8,18H9V19H8zM9,18H10V19H9zM11,18H12V19H11zM13,18H14V19H13zM14,18H15V19H14zM15,18H16V19H15zM16,18H17V19H16zM18,18H19V19H18zM19,18H20V19H19zM20,18H21V19H20zM21,18H22V19H21zM22,18H23V19H22zM24,18H25V19H24zM10,19H11V20H10zM12,19H13V20H12zM13,19H14V20H13zM16,19H17V20H16zM18,19H20V20H18zM22,19H23V20H22zM2,20H3V21H2zM3,20H4V21H3zM4,20H5V21H4zM5,20H6V21H5zM6,20H7V21H6zM7,20H8V21H7zM8,20H9V21H8zM10,20H11V21H10zM11,20H12V21H11zM13,20H14V21H13zM18,20H19V21H18zM20,20H21V21H20zM22,20H23V21H22zM26,20H27V21H26zM2,21H3V22H2zM8,21H9V22H8zM10,21H11V22H10zM13,21H14V22H13zM14,21H15V22H14zM17,21H18V22H17zM18,21H19V22H18zM22,21H23V22H22zM26,21H27V22H26zM2,22H3V23H2zM4,22H5V23H4zM5,22H6V23H5zM6,22H7V23H6zM8,22H9V23H8zM11,22H12V23H11zM14,22H15V23H14zM15,22H16V23H15zM16,22H17V23H16zM17,22H18V23H17zM18,22H19V23H18zM19,22H20V23H19zM20,22H21V23H20zM21,22H22V23H21zM22,22H23V23H22zM24,22H25V23H24zM25,22H26V23H25zM2,23H3V24H2zM4,23H5V24H4zM5,23H6V24H5zM6,23H7V24H6zM8,23H9V24H8zM11,23H12V24H11zM12,23H13V24H12zM13,23H14V24H13zM16,23H17V24H16zM18,23H19V24H18zM19,23H20V24H19zM20,23H21V24H20zM25,23H26V24H25zM26,23H27V24H26zM2,24H3V25H2zM4,24H5V25H4zM5,24H6V25H5zM6,24H7V25H6zM8,24H9V25H8zM11,24H12V25H11zM12,24H13V25H12zM14,24H15V25H14zM16,24H17V25H16zM23,24H24V25H23zM24,24H25V25H24zM26,24H27V25H26zM2,25H3V26H2zM8,25H9V26H8zM10,25H11V26H10zM11,25H12V26H11zM13,25H14V26H13zM16,25H17V26H16zM17,25H18V26H17zM18,25H19V26H18zM21,25H22V26H21zM22,25H23V26H22zM26,25H27V26H26zM2,26H3V27H2zM3,26H4V27H3zM4,26H5V27H4zM5,26H6V27H5zM6,26H7V27H6zM7,26H8V27H7zM8,26H9V27H8zM10,26H11V27H10zM14,26H15V27H14zM16,26H17V27H16zM18,26H19V27H18zM23,26H24V27H23zM26,26H27V27H26z" fill="#000000"/></svg>
+                </div>
+                <p style="font-size: 1.3rem; color: var(--text-muted);">
+                    verktoy.lexolve.com
+                </p>
+            </div>
+        </div>
+        
         <!-- SLIDE 21: Learnings -->
         <div class="slide" id="slide-21">
             <span class="section-tag">Part 7: Key Learnings</span>
             <h2 class="animate">Three insights from <span class="gradient-text">10 years</span></h2>
             <div class="insight-grid animate animate-delay-1">
-                <div class="insight-card"><div class="insight-icon"><i data-lucide="bar-chart-2"></i></div><div class="insight-title">AI-first was right</div><div class="insight-text">We bet on structured data from day one. When the AI wave came, we had data AI could actually use.</div></div>
-                <div class="insight-card"><div class="insight-icon"><i data-lucide="eye-off"></i></div><div class="insight-title">Everyone looked the wrong way</div><div class="insight-text">Blockchain, smart contracts, that was the hype. LLMs came from the blind spot. Today's hype is probably also partly wrong.</div></div>
-                <div class="insight-card"><div class="insight-icon"><i data-lucide="shield"></i></div><div class="insight-title">Domain is the moat</div><div class="insight-text">AI is commodity. 8 years of legal logic, 300 articles, legal database integration. Technology copies in a day, domain takes years.</div></div>
+                <div class="insight-card">
+                    <div class="insight-icon">📊</div>
+                    <div class="insight-title">AI-first was right</div>
+                    <div class="insight-text">We bet on structured data from day one. When the AI wave came, we had data AI could actually use.</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon">🔮</div>
+                    <div class="insight-title">Everyone looked the wrong way</div>
+                    <div class="insight-text">Blockchain, smart contracts, that was the hype. LLMs came from the blind spot. Today's hype is probably also partly wrong.</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon">🛡️</div>
+                    <div class="insight-title">Domain is the moat</div>
+                    <div class="insight-text">AI is commodity. 8 years of legal logic, 300 articles, legal database integration. Technology copies in a day, domain takes years.</div>
+                </div>
             </div>
         </div>
-
+        
         <!-- SLIDE 22: Lee Sedol comeback -->
         <div class="slide" id="slide-22">
             <span class="section-tag">Part 8: Conclusion</span>
             <h2 class="animate">Back to <span class="gradient-text">Lee Sedol</span></h2>
             <div class="animate animate-delay-1" style="max-width: 850px; text-align: center;">
-                <p style="font-size: 1.5rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 30px;">Lee Sedol retired from professional Go in 2019.<br>He said AI was "impossible to beat".</p>
+                <p style="font-size: 1.5rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 30px;">
+                    Lee Sedol retired from professional Go in 2019.<br>
+                    He said AI was "impossible to beat".
+                </p>
                 <div class="card highlight-purple" style="max-width: 750px; margin: 0 auto;">
                     <div class="card-title" style="font-size: 1.6rem; color: var(--accent-purple);">But here's what people remember:</div>
                     <p style="font-size: 1.3rem; color: var(--text-primary); line-height: 1.6; margin-top: 16px;">
@@ -385,102 +1259,173 @@ H21zM25,15H26V16H25zM2,16H3V17H2zM8,16H9V17H8zM9,16H10V17H9zM16,16H17V17H16zM17,
                 </div>
             </div>
         </div>
-
+        
         <!-- SLIDE 23: What I can do now -->
         <div class="slide" id="slide-23">
             <div class="decoration primary"></div>
             <div class="decoration purple"></div>
-            <h1 class="animate" style="font-size: 2.8rem; margin-bottom: 30px;">What used to require a <span class="gradient-text-warm">developer, designer, and team</span><br>to bring my ideas to life...</h1>
-            <p class="animate animate-delay-1" style="font-size: 2.2rem; color: var(--primary); margin-bottom: 50px;">I can now do myself.</p>
+            <h1 class="animate" style="font-size: 2.8rem; margin-bottom: 30px;">
+                What used to require a <span class="gradient-text-warm">developer, designer, and team</span><br>
+                to bring my ideas to life...
+            </h1>
+            <p class="animate animate-delay-1" style="font-size: 2.2rem; color: var(--primary); margin-bottom: 50px;">
+                I can now do myself.
+            </p>
             <div class="animate animate-delay-2" style="text-align: center;">
                 <p style="font-size: 1.4rem; color: var(--primary);">Merete Nygaard</p>
                 <p style="font-size: 1.1rem; color: var(--text-secondary);">Founder & CEO, Lexolve</p>
             </div>
         </div>
-
+        
         <!-- SLIDE 24: The human element -->
         <div class="slide" id="slide-24">
             <span class="section-tag">Part 8: Conclusion</span>
             <h2 class="animate">But we still need <span class="gradient-text">humans</span></h2>
             <div class="animate animate-delay-1" style="max-width: 950px; text-align: center;">
-                <p style="font-size: 1.6rem; color: var(--text-primary); line-height: 1.7; margin-bottom: 30px;">People still want to <strong style="color: var(--primary);">talk to a human</strong>.<br>That's why our research project (2025-2027) focuses on:</p>
+                <p style="font-size: 1.6rem; color: var(--text-primary); line-height: 1.7; margin-bottom: 30px;">
+                    People still want to <strong style="color: var(--primary);">talk to a human</strong>.<br>
+                    That's why our research project (2025-2027) focuses on:
+                </p>
                 <div class="card-grid card-grid-3" style="max-width: 1000px;">
-                    <div class="card"><div class="card-icon"><i data-lucide="check-circle"></i></div><div class="card-title">Quality assurance</div><div class="card-text">Validating AI-generated legal advice</div></div>
-                    <div class="card"><div class="card-icon"><i data-lucide="alert-circle"></i></div><div class="card-title">Escalation</div><div class="card-text">To humans when uncertainty or value is high</div></div>
-                    <div class="card"><div class="card-icon"><i data-lucide="message-circle"></i></div><div class="card-title">Human sparring</div><div class="card-text">When customers want to talk it through</div></div>
+                    <div class="card">
+                        <div class="card-icon">✓</div>
+                        <div class="card-title">Quality assurance</div>
+                        <div class="card-text">Validating AI-generated legal advice</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">⚠️</div>
+                        <div class="card-title">Escalation</div>
+                        <div class="card-text">To humans when uncertainty or value is high</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">💬</div>
+                        <div class="card-title">Human sparring</div>
+                        <div class="card-text">When customers want to talk it through</div>
+                    </div>
                 </div>
             </div>
-            <p class="animate animate-delay-2" style="margin-top: 30px; font-size: 1.3rem; color: var(--text-secondary);"><strong style="color: var(--primary);">Lawyer in the loop</strong> is back, but now it's about making AI better, not replacing it.</p>
+            <p class="animate animate-delay-2" style="margin-top: 30px; font-size: 1.3rem; color: var(--text-secondary);">
+                <strong style="color: var(--primary);">Lawyer in the loop</strong> is back, but now it's about making AI better, not replacing it.
+            </p>
         </div>
-
+        
         <!-- SLIDE 25: Lexolve closing -->
         <div class="slide" id="slide-25">
             <div class="decoration primary"></div>
             <div class="decoration purple"></div>
             <img src="data:image/webp;base64,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" alt="Lexolve" style="height: 70px; margin-bottom: 50px;" class="animate">
-            <h2 class="animate animate-delay-1" style="font-size: 2.5rem; margin-bottom: 40px;">Faster than a lawyer.<br>Safer than <span style="text-decoration: line-through; color: var(--text-muted);">Google</span> <span style="color: var(--primary);">Bing</span> and ChatGPT.</h2>
+            <h2 class="animate animate-delay-1" style="font-size: 2.5rem; margin-bottom: 40px;">
+                Faster than a lawyer.<br>
+                Safer than <span style="text-decoration: line-through; color: var(--text-muted);">Google</span> <span style="color: var(--primary);">Bing</span> and ChatGPT.
+            </h2>
             <div class="animate animate-delay-2" style="display: flex; gap: 40px; margin-top: 20px;">
-                <div class="card" style="flex: 1; max-width: 280px;"><div class="card-icon"><i data-lucide="zap"></i></div><div class="card-title">Fast</div><div class="card-text">Legal tasks in minutes, not hours</div></div>
-                <div class="card" style="flex: 1; max-width: 280px;"><div class="card-icon"><i data-lucide="shield-check"></i></div><div class="card-title">Safe</div><div class="card-text">Built on verified legal logic, not internet guesses</div></div>
-                <div class="card" style="flex: 1; max-width: 280px;"><div class="card-icon"><i data-lucide="flag"></i></div><div class="card-title">Norwegian</div><div class="card-text">Made for Norwegian law and SMBs</div></div>
+                <div class="card" style="flex: 1; max-width: 280px;">
+                    <div class="card-icon">⚡</div>
+                    <div class="card-title">Fast</div>
+                    <div class="card-text">Legal tasks in minutes, not hours</div>
+                </div>
+                <div class="card" style="flex: 1; max-width: 280px;">
+                    <div class="card-icon">🛡️</div>
+                    <div class="card-title">Safe</div>
+                    <div class="card-text">Built on verified legal logic, not internet guesses</div>
+                </div>
+                <div class="card" style="flex: 1; max-width: 280px;">
+                    <div class="card-icon">🇳🇴</div>
+                    <div class="card-title">Norwegian</div>
+                    <div class="card-text">Made for Norwegian law and SMBs</div>
+                </div>
             </div>
             <div class="animate animate-delay-3" style="margin-top: 50px; text-align: center;">
-                <p style="font-size: 1.8rem; color: var(--primary); font-weight: 600; margin-bottom: 10px;">Try it today</p>
-                <p style="font-size: 1.5rem; color: var(--white);">www.lexolve.com</p>
+                <p style="font-size: 1.8rem; color: var(--primary); font-weight: 600; margin-bottom: 10px;">
+                    Try it today
+                </p>
+                <p style="font-size: 1.5rem; color: var(--white);">
+                    www.lexolve.com
+                </p>
             </div>
         </div>
+        
     </div>
-
+    
     <!-- Navigation -->
     <div class="nav">
-        <button class="nav-btn" onclick="prevSlide()"><i data-lucide="chevron-left"></i></button>
+        <button class="nav-btn" onclick="prevSlide()">←</button>
         <span class="slide-counter"><span id="current">1</span> / <span id="total">25</span></span>
-        <button class="nav-btn" onclick="nextSlide()"><i data-lucide="chevron-right"></i></button>
+        <button class="nav-btn" onclick="nextSlide()">→</button>
     </div>
-
+    
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-        
         let currentSlide = 1;
         const totalSlides = 25;
-
+        
         function showSlide(n) {
             if (n > totalSlides) currentSlide = 1;
             if (n < 1) currentSlide = totalSlides;
-            document.querySelectorAll('.slide').forEach(slide => slide.classList.remove('active'));
+            
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
             document.getElementById(`slide-${currentSlide}`).classList.add('active');
             document.getElementById('current').textContent = currentSlide;
+            
             const progress = (currentSlide / totalSlides) * 100;
             document.getElementById('progress').style.width = progress + '%';
         }
-
-        function nextSlide() { currentSlide++; showSlide(currentSlide); }
-        function prevSlide() { currentSlide--; showSlide(currentSlide); }
-
+        
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+        
+        function prevSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+        
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
-            else if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
-            else if (e.key === 'Home') { e.preventDefault(); currentSlide = 1; showSlide(currentSlide); }
-            else if (e.key === 'End') { e.preventDefault(); currentSlide = totalSlides; showSlide(currentSlide); }
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                currentSlide = 1;
+                showSlide(currentSlide);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                currentSlide = totalSlides;
+                showSlide(currentSlide);
+            }
         });
-
+        
         document.addEventListener('click', (e) => {
             if (e.target.closest('.nav')) return;
+            
             const clickX = e.clientX;
             const windowWidth = window.innerWidth;
-            if (clickX > windowWidth * 0.7) nextSlide();
-            else if (clickX < windowWidth * 0.3) prevSlide();
+            
+            if (clickX > windowWidth * 0.7) {
+                nextSlide();
+            } else if (clickX < windowWidth * 0.3) {
+                prevSlide();
+            }
         });
-
+        
         let touchStartX = 0;
-        document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+        
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
         document.addEventListener('touchend', (e) => {
             const diff = touchStartX - e.changedTouches[0].screenX;
             if (diff > 50) nextSlide();
             else if (diff < -50) prevSlide();
         });
-
+        
         showSlide(currentSlide);
     </script>
 </body>
